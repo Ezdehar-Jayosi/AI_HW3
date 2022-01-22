@@ -42,6 +42,14 @@ def find_best_pruning_m(train_dataset: np.array, m_choices, num_folds=5):
 
         # ====== YOUR CODE: ======
         KFold = sklearn.model_selection.KFold(n_splits=num_folds, shuffle=True, random_state=ID)
+        m_accuracy = []
+        for train_set, test_set in create_train_validation_split(train_dataset, KFold):
+            x_train, y_train, x_test, y_test = get_dataset_split(train_set, test_set, target_attribute)
+            model.fit(x_train, y_train)
+            pred = model.predict(x_test)
+            acc = accuracy(y_test, pred)
+            m_accuracy.append(acc)
+        accuracies.append(m_accuracy)
         # ========================
 
     best_m_idx = np.argmax([np.mean(acc) for acc in accuracies])
