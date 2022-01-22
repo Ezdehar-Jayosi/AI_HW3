@@ -134,11 +134,9 @@ class ID3:
         attributes_names, _, _ = load_data_set("ID3")
         attributes_names.remove(self.target_attribute)
         for attr_indx, attr_name in enumerate(attributes_names):
-            vals = (list(unique_vals(rows, attr_indx)))
+            vals = list(unique_vals(rows, attr_indx))
             for indx in range(len(vals) - 1):
-                # partition = (vals[indx] + vals[indx + 1]) / 2
-                question = Question(attr_indx, attr_name, (vals[indx] + vals[indx + 1]) / 2)
-
+                question = Question(attr_name, attr_indx, (vals[indx] + vals[indx + 1]) / 2)
                 gain, true_rows, true_labels, false_rows, false_labels = self.partition(rows, labels, question,
                                                                                         current_uncertainty)
 
@@ -221,8 +219,9 @@ class ID3:
                     max_val = val
                     prediction = key
         elif isinstance(node, DecisionNode):
-            prediction = self.predict_sample(row, node.true_branch) if node.question.match(row) else self.predict_sample(row,
-                                                                                                                  node.false_branch)
+            prediction = self.predict_sample(row, node.true_branch) if node.question.match(
+                row) else self.predict_sample(row,
+                                              node.false_branch)
         # ========================
 
         return prediction
