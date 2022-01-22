@@ -38,7 +38,8 @@ def accuracy(y: np.array, y_pred: np.array):
     assert y.ndim == 1
 
     # ====== YOUR CODE: ======
-    raise NotImplementedError
+    pred_sum = np.sum(y == y_pred)
+    accuracy_val = pred_sum / len(y)
     # ========================
 
     return accuracy_val
@@ -60,7 +61,11 @@ def l2_dist(x1: np.array, x2: np.array):
     dists = None
 
     # ====== YOUR CODE: ======
-    raise NotImplementedError
+    dists = ((x1 * x1).sum(axis=1).reshape((x1.shape[0], 1)) + (x2 * x2).sum(axis=1).reshape(
+        (x2.shape[0], 1))) * np.ones(
+        shape=(1, x2.shape[0])) - \
+            2 * x1.dot(x2.T)
+    dists = np.sqrt(dists)
     # ========================
 
     return dists
