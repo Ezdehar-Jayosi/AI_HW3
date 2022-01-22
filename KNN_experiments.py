@@ -29,7 +29,7 @@ def get_top_b_features(x, y, b=5, k=51):
     top_b_features_indices = []
 
     # ====== YOUR CODE: ======
-    raise NotImplementedError
+
     # ========================
 
     return top_b_features_indices
