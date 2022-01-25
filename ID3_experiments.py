@@ -74,7 +74,8 @@ def basic_experiment(x_train, y_train, x_test, y_test, formatted_print=False):
     # ====== YOUR CODE: ======
     model = ID3(attributes_names)
     model.fit(x_train, y_train)
-    acc = accuracy(model.predict(x_test), y_test)
+    pred = model.predict(x_test)
+    acc = accuracy(y_test, pred)
     # ========================
 
     assert acc > 0.9, 'you should get an accuracy of at least 90% for the full ID3 decision tree'
@@ -96,7 +97,7 @@ def cross_validation_experiment(plot_graph=True):
     #  - Test the model on the test set (evaluate the accuracy) and print the result.
     best_m = None
     accuracies = []
-    m_choices = [50, 100, 150, 200, 250]
+    m_choices = [1, 5, 10, 50, 100, 150,200,250]
     num_folds = 5
     if len(m_choices) < 5:
         print('fill the m_choices list with  at least 5 different values for M.')
@@ -141,7 +142,7 @@ def best_m_test(x_train, y_train, x_test, y_test, min_for_pruning):
     model = ID3(label_names=attributes_names, min_for_pruning=min_for_pruning)
     model.fit(x_train, y_train)
     pred = model.predict(x_test)
-    acc = accuracy(pred, y_test)
+    acc = accuracy(y_test, pred)
     # ========================
 
     return acc

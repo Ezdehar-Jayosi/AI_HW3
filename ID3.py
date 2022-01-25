@@ -131,7 +131,7 @@ class ID3:
         current_uncertainty = self.entropy(rows, labels)
 
         # ====== YOUR CODE: ======
-        attributes_names, _, _ = load_data_set("ID3")
+        attributes_names = load_data_set("ID3")[0]
         attributes_names.remove(self.target_attribute)
         for attr_indx, attr_name in enumerate(attributes_names):
             vals = list(unique_vals(rows, attr_indx))
@@ -168,19 +168,24 @@ class ID3:
         best_question = None
         true_branch, false_branch = None, None
 
-        # ====== YOUR CODE: ====== TODO: REDO IT
-        best_gain, best_question, best_true_rows, best_true_labels, best_false_rows, best_false_labels = self.find_best_split(
-            rows, labels)
+        # ====== YOUR CODE: ======
+
+        # if len(class_counts(rows, labels)) == 1 or len(rows) <= self.min_for_pruning:
+        #     return Leaf(rows, labels)
+        #
         # true_branch = self.build_tree(best_true_rows, best_true_labels)
         # false_branch = self.build_tree(best_false_rows, best_false_labels)
-        if np.all(best_true_labels == best_true_labels[0]) or best_true_labels.size <= self.min_for_pruning:
-            true_branch = Leaf(best_true_rows, best_true_labels)
-        else:
-            true_branch = self.build_tree(best_true_rows, best_true_labels)
-        if np.all(best_false_labels == best_false_labels[0]) or best_false_labels.size <= self.min_for_pruning:
-            false_branch = Leaf(best_false_rows, best_false_labels)
-        else:
-            false_branch = self.build_tree(best_false_rows, best_false_labels)
+        best_gain, best_question, best_true_rows, best_true_labels, best_false_rows, best_false_labels = self.find_best_split(
+            rows, labels)
+
+        false_branch = self.build_tree(best_false_rows, best_false_labels) if not (
+                (len(class_counts(best_false_rows, best_false_labels)) == 1) or len(
+            best_false_rows) <= self.min_for_pruning) else Leaf(best_false_rows, best_false_labels)
+
+        true_branch = self.build_tree(best_true_rows, best_true_labels) if not (
+                (len(class_counts(best_true_rows, best_true_labels)) == 1) or len(
+            best_true_rows) <= self.min_for_pruning) else Leaf(best_true_rows, best_true_labels)
+
         # ========================
 
         return DecisionNode(best_question, true_branch, false_branch)
