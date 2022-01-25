@@ -61,11 +61,12 @@ def l2_dist(x1: np.array, x2: np.array):
     dists = None
 
     # ====== YOUR CODE: ======
-    dists = ((x1 * x1).sum(axis=1).reshape((x1.shape[0], 1)) + (x2 * x2).sum(axis=1).reshape(
-        (x2.shape[0], 1))) * np.ones(
-        shape=(1, x2.shape[0])) - \
-            2 * x1.dot(x2.T)
-    dists = np.sqrt(dists)
+    dists = np.empty((x1.shape[0], x2.shape[0]))
+
+    for n in range(x1.shape[0]):
+        for i in range(x2.shape[0]):
+            dists[n][i] = np.sum(np.square(x1[n] - x2[i]))
+
     # ========================
 
     return dists
