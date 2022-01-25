@@ -20,7 +20,8 @@ def get_top_b_features(x, y, b=5, k=51):
     :param x: array-like of shape (n_samples, n_features).
     :param y: array-like of shape (n_samples,).
     :param b: number of features to be selected.
-    :return: indices of top 'b' features, sorted.
+    :return: indices of top 'b' features as the result of selection/dimensionality reduction on sample
+            sets using sklearn.feature_selection module
     """
     # TODO: Implement get_top_b_features function
     #   - Note: The brute force approach which examines all subsets of size `b` will not be accepted.
@@ -29,7 +30,7 @@ def get_top_b_features(x, y, b=5, k=51):
     top_b_features_indices = []
 
     # ====== YOUR CODE: ======
-
+    raise NotImplementedError
     # ========================
 
     return top_b_features_indices
@@ -55,7 +56,7 @@ if __name__ == '__main__':
             To run the cross validation experiment over the K,Threshold hyper-parameters
             uncomment below code and run it
     """
-    # run_cross_validation()
+    run_cross_validation()
 
     # # ========================================================================
 

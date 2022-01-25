@@ -74,7 +74,6 @@ def basic_experiment(x_train, y_train, x_test, y_test, formatted_print=False):
     # ====== YOUR CODE: ======
     model = ID3(attributes_names)
     model.fit(x_train, y_train)
-    # pred = model.predict(x_test)
     acc = accuracy(model.predict(x_test), y_test)
     # ========================
 
@@ -97,7 +96,7 @@ def cross_validation_experiment(plot_graph=True):
     #  - Test the model on the test set (evaluate the accuracy) and print the result.
     best_m = None
     accuracies = []
-    m_choices = [30, 50, 100, 150, 200]
+    m_choices = [50, 100, 150, 200, 250]
     num_folds = 5
     if len(m_choices) < 5:
         print('fill the m_choices list with  at least 5 different values for M.')

@@ -168,7 +168,7 @@ class ID3:
         best_question = None
         true_branch, false_branch = None, None
 
-        # ====== YOUR CODE: ====== TODO: finish this
+        # ====== YOUR CODE: ====== TODO: REDO IT
         best_gain, best_question, best_true_rows, best_true_labels, best_false_rows, best_false_labels = self.find_best_split(
             rows, labels)
         # true_branch = self.build_tree(best_true_rows, best_true_labels)
@@ -241,7 +241,6 @@ class ID3:
         y_pred = []
         for row in rows:
             y_pred.append(self.predict_sample(row))
-
         y_pred = np.array(y_pred)
         # ========================
 
